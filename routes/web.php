@@ -11,7 +11,6 @@ Route::middleware('auth.token')->group(function () {
     Route::post('/login', [AuthController::class, 'handleLogin'])->name('post.login')->middleware('guest');
 });
 
-// Proteksi dengan Middleware auth.session
 Route::middleware('auth.session')->group(function () {
     Route::post('/logout', [AuthController::class, 'handleLogout'])->name('auth.logout');
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
@@ -29,7 +28,6 @@ Route::middleware('auth.session')->group(function () {
     Route::resource('satuans', SatuanController::class);
 });
 
-// Error Page
 Route::get('/error', function () {
     return view('error.error');
 })->name('error');

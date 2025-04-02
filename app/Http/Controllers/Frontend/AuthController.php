@@ -41,7 +41,6 @@ class AuthController extends Controller
             session(['token' => $data['data']['token']]);
             session(['user' => $data['data']['user']]);
 
-            // Simpan pesan sukses di session
             session()->flash('login_success', 'Login berhasil! Selamat datang, ' . $data['data']['user']['name']);
 
             return redirect()->route('dashboard');
@@ -71,7 +70,7 @@ class AuthController extends Controller
             Log::info('Logout response: ' . $response->body());
 
             if ($response->successful()) {
-                Session::flush(); // Hapus semua session
+                Session::flush();
                 return redirect()->route('auth.login');
             }
         }

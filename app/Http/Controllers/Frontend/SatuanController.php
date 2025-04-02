@@ -12,7 +12,6 @@ class SatuanController extends Controller
     $apiUrl = 'http://127.0.0.1:8090/api/satuans';
 
     try {
-        // Ambil token dari session
         $token = session('token');
 
         $client = new \GuzzleHttp\Client();

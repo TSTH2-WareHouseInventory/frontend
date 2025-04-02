@@ -29,8 +29,6 @@ class BarangController extends Controller
 
             $data = json_decode($response->getBody(), true);
 
-            
-            // Cek apakah data ada atau tidak
             if (isset($data['data']) && !empty($data['data'])) {
                 return view('MasterData.Satuan.index', compact('data'));
             } else {
