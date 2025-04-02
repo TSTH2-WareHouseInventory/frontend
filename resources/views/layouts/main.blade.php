@@ -14,39 +14,14 @@
     <!-- Main content -->
     <div class="content-wrapper">
 
+
+
+
         <!-- Inner content -->
         <div class="content-inner">
 
-            <!-- Page header -->
-            <div class="page-header page-header-light shadow">
-                <div class="page-header-content d-lg-flex">
-                    <div class="d-flex">
-                        <h4 class="page-title mb-0">
-                            Home - <span class="fw-normal">Dashboard</span>
-                        </h4>
-
-
-                    </div>
-
-
-                </div>
-
-                <div class="page-header-content d-lg-flex border-top">
-                    <div class="d-flex">
-                        <div class="breadcrumb py-2">
-                            <a href="index.html" class="breadcrumb-item"><i class="ph-house"></i></a>
-                            <a href="#" class="breadcrumb-item">Home</a>
-                            <span class="breadcrumb-item active">Dashboard</span>
-                        </div>
-                    </div>
-
-                    <div class="collapse d-lg-block ms-lg-auto" id="breadcrumb_elements">
-
-                    </div>
-                </div>
-            </div>
+            @include('layouts.page_header')
             <!-- /page header -->
-
 
             <!-- Content area -->
             <div class="content">

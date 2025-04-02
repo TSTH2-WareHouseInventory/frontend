@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 class DashboardController extends Controller
 {
     public function index(){
+
         $barangs = Barang::count();
         $jenisbarangs = JenisBarang::count();
         $satuans = Satuan::count();

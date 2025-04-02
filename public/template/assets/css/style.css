@@ -86,3 +86,17 @@ z-index: 10001;
 
 }
 
+
+#sweet_success {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    z-index: 1050;
+    animation: fadeOut 3s forwards;
+}
+
+@keyframes fadeOut {
+    0% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { opacity: 0; }
+}

@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Session;
 
 class AuthController extends Controller
 {
@@ -18,31 +20,62 @@ class AuthController extends Controller
 
     public function handleLogin(Request $request)
 {
+    $credentials = $request->validate([
+        'email'    => 'required|string|email',
+        'password' => 'required|string',
+    ]);
+
+    $client = new Client();
+
     try {
-        $client = new Client();
         $response = $client->post($this->apiBaseUrl . "/login", [
             'form_params' => [
-                'email' => $request->email,
-                'password' => $request->password,
+                'email'    => $credentials['email'],
+                'password' => $credentials['password'],
             ],
         ]);
 
-        $data = json_decode($response->getBody(), true);
-        if (isset($data['token'])) {
-            session(['token' => $data['token']]);
+        $data = json_decode($response->getBody()->getContents(), true);
+
+        if ($data['response_code'] == '200') {
+            session(['token' => $data['data']['token']]);
+            session(['user' => $data['data']['user']]);
+
+            // Simpan pesan sukses di session
+            session()->flash('login_success', 'Login berhasil! Selamat datang, ' . $data['data']['user']['name']);
+
             return redirect()->route('dashboard');
-        } else {
-            return back()->with('error', 'Login failed, please try again.');
         }
-    } catch (\Exception $e) {
-        return back()->with('error', 'API error: ' . $e->getMessage());
+
+    } catch (\GuzzleHttp\Exception\ClientException $e) {
+        $response = $e->getResponse();
+        $data = json_decode($response->getBody()->getContents(), true);
+
+        if ($data['response_code'] == '401') {
+            return back()->withErrors(['login_error' => $data['message']]);
+        }
     }
+
+    return back()->withErrors(['login_error' => 'Terjadi kesalahan. Silakan coba lagi.']);
 }
+
+
 
     public function handleLogout()
     {
-        session()->forget('token'); // Hapus token dari session
-        return redirect()->route('login')->with('status', 'Anda telah logout.');
-    }
+        $token = Session::get('token');
+        Log::info('Token on logout: ' . $token);
 
+        if ($token) {
+            $response = Http::withToken($token)->post($this->apiBaseUrl . "/logout");
+            Log::info('Logout response: ' . $response->body());
+
+            if ($response->successful()) {
+                Session::flush(); // Hapus semua session
+                return redirect()->route('auth.login');
+            }
+        }
+
+        return redirect()->route('auth.login');
+    }
 }

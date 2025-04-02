@@ -30,6 +30,11 @@
 
     <!-- Theme JS files -->
 
+    <script src="{{asset('template/assets/js/vendor/notifications/noty.min.js')}}"></script>
+    {{-- <script src="{{asset('template/assets/demo/pages/extra_sweetalert.js')}}"></script> --}}
+    <script src="{{asset('template/assets/js/vendor/notifications/sweet_alert.min.js')}}"></script>
+
+
     <link href="{{asset('template/assets/icons/icomoon/styles.min.css')}}" rel="stylesheet" type="text/css">
     <link href="{{asset('template/assets/icons/material/styles.min.css')}}" rel="stylesheet" type="text/css">
     <script src="{{ asset('template/assets/js/vendor/visualization/d3/d3.min.js') }}"></script>
@@ -100,7 +105,7 @@
                                class="w-32px h-32px rounded-pill" alt="">
                            <span class="status-indicator bg-success"></span>
                        </div>
-                       <span class="d-none d-lg-inline-block mx-lg-2">Victoria</span>
+                       <span class="d-none d-lg-inline-block mx-lg-2"> {{ session('user')['name'] }}</span>
                    </a>
 
                    <div class="dropdown-menu dropdown-menu-end">
@@ -109,10 +114,14 @@
                            My profile
                        </a>
 
-                       <a href="{{route('login')}}" class="dropdown-item">
-                           <i class="ph-sign-out me-2"></i>
-                           Logout
-                       </a>
+                       <button class="dropdown-item" id="sweet_combine">
+                        <i class="ph-sign-out me-2"></i>
+                        Logout
+                    </button>
+                    <form action="{{ route('auth.logout') }}" method="POST" id="logoutForm" style="display: none;">
+                        @csrf
+                        <button type="submit" style="display: none;"></button>
+                    </form>
                    </div>
                </li>
            </ul>

@@ -11,15 +11,32 @@ class BarangController extends Controller
 {
     public function index()
     {
-        $apiUrl = 'http://127.0.0.1:8090/api/barangs';
+        $apiUrl = 'http://127.0.0.1:8090/api/satuans';
 
         try {
+            $token = session('token');
+
+            if (!$token) {
+                return redirect()->route('login')->withErrors('You need to login first.');
+            }
+
             $client = new \GuzzleHttp\Client();
-            $response = $client->get($apiUrl);
+            $response = $client->get($apiUrl, [
+                'headers' => [
+                    'Authorization' => 'Bearer ' . $token,
+                ],
+            ]);
+
             $data = json_decode($response->getBody(), true);
 
+            
+            // Cek apakah data ada atau tidak
+            if (isset($data['data']) && !empty($data['data'])) {
+                return view('MasterData.Satuan.index', compact('data'));
+            } else {
+                return view('error.error', ['error' => 'Data tidak ditemukan']);
+            }
 
-            return view('MasterData.Barang.index', compact('data'));
         } catch (\Exception $e) {
             return view('error.error', ['error' => $e->getMessage()]);
         }

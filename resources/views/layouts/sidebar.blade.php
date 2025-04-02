@@ -47,7 +47,7 @@
                     </a>
                     <ul class="nav-group-sub collapse">
                         <li class="nav-item"><a href="{{route('barangs.index')}}" class="nav-link active">Barang</a></li>
-                        <li class="nav-item"><a href="../../layout_2/full/index.html" class="nav-link">Satuan</a></li>
+                        <li class="nav-item"><a href="{{route('satuans.index')}}" class="nav-link">Satuan</a></li>
                         <li class="nav-item"><a href="../../layout_3/full/index.html" class="nav-link">Jenis Barang</a></li>
                         <li class="nav-item"><a href="../../layout_4/full/index.html" class="nav-link">Kategori</a></li>
                         <li class="nav-item"><a href="../../layout_5/full/index.html" class="nav-link">Gudang</a></li>

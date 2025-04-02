@@ -95,47 +95,18 @@
             <thead>
                 <tr>
                     <th>No</th>
-                    <th>Gambar</th>
-                    <th>Nama Barang</th>
-                    <th>Barang Kode</th>
-                    <th>Qr Code</th>
-                    <th>Kategori</th>
-                    <th>Jenis Barang</th>
-                    <th>Satuan</th>
-                    <th>Stok Tersedia</th>
-                    <th>Stok Dipinjam</th>
-                    <th>Stok Maintenen</th>
+                    <th>name</th>
+                    <th>slug</th>
+                    <th>deskripsi</th>
                     <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach($data['data'] as $key => $barang) <tr>
+                @foreach($data['data'] as $key => $satuan) <tr>
                     <td>{{ $key + 1 }}</td>
-                    <td><img src="{{asset('storage/'.$barang['barang_gambar'])}}" class="" alt=""></td>
-                    <td>{{$barang['barang_nama']}}</td>
-                    <td>{{$barang['barang_kode']}}</td>
-                    <td>
-                        @php
-                            $qrCodeSvg = asset('storage/qr_code/' . $barang['barang_kode'] . '.svg');
-                            $qrCodeJpg = asset('storage/qr_code/' . $barang['barang_kode'] . '.jpg');
-                            $qrCodePng = asset('storage/qr_code/' . $barang['barang_kode'] . '.png');
-                        @endphp
-
-                        @if (file_exists(public_path('storage/qr_code/' . $barang['barang_kode'] . '.svg')))
-                            <img src="{{ $qrCodeSvg }}" alt="QR Code SVG">
-                        @elseif (file_exists(public_path('storage/qr_code/' . $barang['barang_kode'] . '.png')))
-                            <img src="{{ $qrCodePng }}" alt="QR Code PNG">
-                        @elseif (file_exists(public_path('storage/qr_code/' . $barang['barang_kode'] . '.jpg')))
-                            <img src="{{ $qrCodeJpg }}" alt="QR Code JPG">
-                        @else
-                            <span>Tidak ada QR Code</span>
-                        @endif
-                    </td>
-                    <td>none</td>
-                    {{-- <td>{{ $barang['jenisBarang->name'] ?? '-' }}</td>
-                    <td>{{ $barang['satuan->name'] ?? '-' }}</td> --}}
+                    <td>{{$satuan['name']}}</td>
+                    <td>{{ $satuan['description'] ?? '-' }}</td>
                     <td><span class="badge bg-success bg-opacity-10 text-success">Active</span></td>
-                    <td>$85,600</td>
                     <td></td>
                     <td>
                         <div class="d-inline-flex">

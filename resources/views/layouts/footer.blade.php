@@ -39,6 +39,35 @@
         scanner.stop(); // Matikan kamera saat ditutup
     });
 </script>
-
-
+<script>
+    const swalCombineElement = document.querySelector('#sweet_combine');
+    if (swalCombineElement) {
+        swalCombineElement.addEventListener('click', function() {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "Do you want to logout?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, logout!',
+                cancelButtonText: 'No, cancel!',
+                buttonsStyling: false,
+                customClass: {
+                    confirmButton: 'btn btn-success',
+                    cancelButton: 'btn btn-danger'
+                }
+            }).then(function(result) {
+                if (result.isConfirmed) {
+                    // Jika pilih Yes, kirimkan form logout
+                    document.querySelector('#logoutForm').submit();  // Form logout akan disubmit
+                } else if (result.dismiss === Swal.DismissReason.cancel) {
+                    Swal.fire(
+                        'Cancelled',
+                        'You are still logged in.',
+                        'error'
+                    );
+                }
+            });
+        });
+    }
+</script>
 </html>
