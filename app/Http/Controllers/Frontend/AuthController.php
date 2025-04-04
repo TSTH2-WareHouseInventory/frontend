@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
-use GuzzleHttp\Client;
+use GuzzleHttp\Exception\RequestException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
@@ -11,7 +11,12 @@ use Illuminate\Support\Facades\Session;
 
 class AuthController extends Controller
 {
-    private $apiBaseUrl = "http://127.0.0.1:8090/api/auth";
+    private $apiBaseUrl;
+
+    public function __construct()
+    {
+        $this->apiBaseUrl = config('api.base_url');
+    }
 
     public function showLoginForm()
     {
@@ -19,59 +24,45 @@ class AuthController extends Controller
     }
 
     public function handleLogin(Request $request)
-{
-    $credentials = $request->validate([
-        'email'    => 'required|string|email',
-        'password' => 'required|string',
-    ]);
-
-    $client = new Client();
-
-    try {
-        $response = $client->post($this->apiBaseUrl . "/login", [
-            'form_params' => [
-                'email'    => $credentials['email'],
-                'password' => $credentials['password'],
-            ],
+    {
+        $credentials = $request->validate([
+            'email'    => 'required|string|email',
+            'password' => 'required|string',
         ]);
 
-        $data = json_decode($response->getBody()->getContents(), true);
+        try {
+            $response = Http::post("{$this->apiBaseUrl}/auth/login", $credentials);
+            $data = $response->json();
 
-        if ($data['response_code'] == '200') {
-            session(['token' => $data['data']['token']]);
-            session(['user' => $data['data']['user']]);
+            if ($response->successful() && isset($data['response_code']) && $data['response_code'] == 200) {
+                session([
+                    'token' => $data['data']['token'],
+                    'user' => $data['data']['user']
+                ]);
 
-            session()->flash('login_success', 'Login berhasil! Selamat datang, ' . $data['data']['user']['name']);
+                session()->flash('login_success', 'Login berhasil! Selamat datang, ' . $data['data']['user']['name']);
+                return redirect()->route('dashboard');
+            }
 
-            return redirect()->route('dashboard');
-        }
-
-    } catch (\GuzzleHttp\Exception\ClientException $e) {
-        $response = $e->getResponse();
-        $data = json_decode($response->getBody()->getContents(), true);
-
-        if ($data['response_code'] == '401') {
-            return back()->withErrors(['login_error' => $data['message']]);
+            // Menampilkan error message dari API jika login gagal
+            return back()->withErrors(['login_error' => $data['message'] ?? 'Login gagal. Coba lagi.']);
+        } catch (RequestException $e) {
+            // Jika terjadi error saat menghubungi API
+            Log::error('Login API Error: ' . $e->getMessage());
+            return back()->withErrors(['login_error' => 'Terjadi kesalahan saat menghubungi server.']);
         }
     }
 
-    return back()->withErrors(['login_error' => 'Terjadi kesalahan. Silakan coba lagi.']);
-}
-
-
-
     public function handleLogout()
     {
-        $token = Session::get('token');
-        Log::info('Token on logout: ' . $token);
+        $token = session('token');
 
         if ($token) {
-            $response = Http::withToken($token)->post($this->apiBaseUrl . "/logout");
-            Log::info('Logout response: ' . $response->body());
+            $response = Http::withToken($token)->post("{$this->apiBaseUrl}/auth/logout");
 
             if ($response->successful()) {
                 Session::flush();
-                return redirect()->route('auth.login');
+                return redirect()->route('auth.login')->with('logout_success', 'Anda telah logout.');
             }
         }
 
