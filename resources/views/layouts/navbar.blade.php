@@ -34,6 +34,12 @@
     {{-- <script src="{{asset('template/assets/demo/pages/extra_sweetalert.js')}}"></script> --}}
     <script src="{{asset('template/assets/js/vendor/notifications/sweet_alert.min.js')}}"></script>
 
+    <script src="{{asset('template/assets/js/jquery/jquery.min.js')}}"></script>
+    <script src="{{asset('template/assets/js/vendor/tables/datatables/datatables.min.js')}}"></script>
+    <script src="{{asset('template/assets/js/vendor/tables/datatables/extensions/pdfmake/pdfmake.min.js')}}"></script>
+    <script src="{{asset('template/assets/js/vendor/tables/datatables/extensions/pdfmake/vfs_fonts.min.js')}}"></script>
+    <script src="{{asset('template/assets/js/vendor/tables/datatables/extensions/buttons.min.js')}}"></script>
+    <script src="{{asset('template/assets/demo/pages/datatables_extension_buttons_html5.js')}}"></script>
 
     <link href="{{asset('template/assets/icons/icomoon/styles.min.css')}}" rel="stylesheet" type="text/css">
     <link href="{{asset('template/assets/icons/material/styles.min.css')}}" rel="stylesheet" type="text/css">
@@ -43,6 +49,8 @@
 
     <link href="{{asset('template/assets/icons/fontawesome/styles.min.css')}}" rel="stylesheet" type="text/css">
     <script src="{{ asset('assets/js/app.js') }}"></script>
+    <script src="{{asset('template/assets/demo/pages/datatables_extension_key_table.js')}}"></script>
+    <script src="{{asset('template/assets/js/vendor/tables/datatables/extensions/key_table.min.js')}}"></script>
     <script src="{{ asset('template/assets/demo/pages/dashboard.js') }}"></script>
     <script src="{{ asset('template/assets/demo/charts/pages/dashboard/streamgraph.js') }}"></script>
     <script src="{{ asset('template/assets/demo/charts/pages/dashboard/sparklines.js') }}"></script>

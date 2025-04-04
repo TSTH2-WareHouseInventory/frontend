@@ -1,11 +1,5 @@
 <!-- Main navbar -->
 @push('css')
-<script src="{{asset('template/assets/js/jquery/jquery.min.js')}}"></script>
-<script src="{{asset('template/assets/js/vendor/tables/datatables/datatables.min.js')}}"></script>
-<script src="{{asset('template/assets/js/vendor/tables/datatables/extensions/pdfmake/pdfmake.min.js')}}"></script>
-<script src="{{asset('template/assets/js/vendor/tables/datatables/extensions/pdfmake/vfs_fonts.min.js')}}"></script>
-<script src="{{asset('template/assets/js/vendor/tables/datatables/extensions/buttons.min.js')}}"></script>
-<script src="{{asset('template/assets/demo/pages/datatables_extension_buttons_html5.js')}}"></script>
 
 
 @endpush
