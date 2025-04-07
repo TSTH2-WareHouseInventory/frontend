@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Frontend;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -24,7 +24,7 @@ class SatuanController extends Controller
 
             $data = json_decode($response->getBody(), true);
 
-            return view('MasterData.Satuan.index', compact('data'));
+            return view('frontend.satuan.index', compact('data'));
         } catch (\Exception $e) {
             return view('error.error', ['error' => $e->getMessage()]);
         }
@@ -34,7 +34,7 @@ class SatuanController extends Controller
         $token = session('token');
 
         $response = Http::withToken($token)
-            ->post('http://localhost:8090/api/satuans', $request->only('name', 'description'));
+            ->post('http://localhost:8000/api/satuans', $request->only('name', 'description'));
 
         if ($response->successful()) {
             return redirect()->route('satuans.create')->with('success', 'Berhasil menambahkan satuan!');

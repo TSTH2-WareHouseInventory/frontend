@@ -1,9 +1,10 @@
 <?php
 
-use App\Http\Controllers\Frontend\AuthController;
-use App\Http\Controllers\Frontend\BarangController;
-use App\Http\Controllers\Frontend\DashboardController;
-use App\Http\Controllers\Frontend\SatuanController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BarangCategoryController;
+use App\Http\Controllers\BarangController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\SatuanController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth.token')->group(function () {
@@ -26,6 +27,7 @@ Route::middleware('auth.session')->group(function () {
 
     Route::resource('barangs', BarangController::class);
     Route::resource('satuans', SatuanController::class);
+    Route::resource('barang-categories', BarangCategoryController::class);
 });
 
 Route::get('/error', function () {

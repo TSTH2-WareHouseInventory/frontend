@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Frontend;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Barang;
@@ -12,7 +12,8 @@ use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
-    public function index(){
+    public function index()
+    {
 
         $barangs = Barang::count();
         $jenisbarangs = JenisBarang::count();
@@ -20,6 +21,6 @@ class DashboardController extends Controller
         $users = User::count();
         $gudangs = Gudang::count();
 
-        return view('layouts.main', compact('barangs', 'jenisbarangs', 'satuans', 'users', 'gudangs'));
+        return view('frontend.dashboard', compact('barangs', 'jenisbarangs', 'satuans', 'users', 'gudangs'));
     }
 }

@@ -10,10 +10,10 @@
             </h4>
         </div>
 
-        @if(session('login_success'))
-        <div id="sweet_success" class="alert alert-success alert-dismissible fade show custom-alert" role="alert">
-            <strong><i class="ph-check-circle"></i> Sukses!</strong> Login berhasil.
-        </div>
+        @if (session('login_success'))
+            <div id="sweet_success" class="alert alert-success alert-dismissible fade show custom-alert" role="alert">
+                <strong><i class="ph-check-circle"></i> Sukses!</strong> Login berhasil.
+            </div>
         @endif
     </div>
 

@@ -10,11 +10,13 @@
                 <h5 class="sidebar-resize-hide flex-grow-1 my-auto">Navigation</h5>
 
                 <div>
-                    <button type="button" class="btn btn-flat-white btn-icon btn-sm rounded-pill border-transparent sidebar-control sidebar-main-resize d-none d-lg-inline-flex">
+                    <button type="button"
+                        class="btn btn-flat-white btn-icon btn-sm rounded-pill border-transparent sidebar-control sidebar-main-resize d-none d-lg-inline-flex">
                         <i class="ph-arrows-left-right"></i>
                     </button>
 
-                    <button type="button" class="btn btn-flat-white btn-icon btn-sm rounded-pill border-transparent sidebar-mobile-main-toggle d-lg-none">
+                    <button type="button"
+                        class="btn btn-flat-white btn-icon btn-sm rounded-pill border-transparent sidebar-mobile-main-toggle d-lg-none">
                         <i class="ph-x"></i>
                     </button>
                 </div>
@@ -33,7 +35,7 @@
                     <i class="ph-dots-three sidebar-resize-show"></i>
                 </li>
                 <li class="nav-item">
-                    <a href="{{route('dashboard')}}" class="nav-link active">
+                    <a href="{{ route('dashboard') }}" class="nav-link active">
                         <i class="ph-house"></i>
                         <span>
                             Dashboard
@@ -46,12 +48,16 @@
                         <span>Master Data</span>
                     </a>
                     <ul class="nav-group-sub collapse">
-                        <li class="nav-item"><a href="{{route('barangs.index')}}" class="nav-link active">Barang</a></li>
-                        <li class="nav-item"><a href="{{route('satuans.index')}}" class="nav-link">Satuan</a></li>
-                        <li class="nav-item"><a href="../../layout_3/full/index.html" class="nav-link">Jenis Barang</a></li>
-                        <li class="nav-item"><a href="../../layout_4/full/index.html" class="nav-link">Kategori</a></li>
+                        <li class="nav-item"><a href="{{ route('barangs.index') }}" class="nav-link active">Barang</a>
+                        </li>
+                        <li class="nav-item"><a href="{{ route('satuans.index') }}" class="nav-link">Satuan</a></li>
+                        <li class="nav-item"><a href="../../layout_3/full/index.html" class="nav-link">Jenis Barang</a>
+                        </li>
+                        <li class="nav-item"><a href="{{ route('barang-categories.index') }}" class="nav-link">Kategori
+                                Barang</a></li>
                         <li class="nav-item"><a href="../../layout_5/full/index.html" class="nav-link">Gudang</a></li>
-                        <li class="nav-item"><a href="../../layout_6/full/index.html" class="nav-link">Jenis Trasanksi</a></li>
+                        <li class="nav-item"><a href="../../layout_6/full/index.html" class="nav-link">Jenis
+                                Trasanksi</a></li>
                         <li class="nav-item"><a href="../../layout_7/full/index.html" class="nav-link">Status</a></li>
                     </ul>
                 </li>
